@@ -6,6 +6,11 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.5",
@@ -13,7 +18,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -35,5 +41,20 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "A tool to help you keep track of how old/what size all the kids in your life are.",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodyConck/Baby-Tracker.git"
+  },
+  "author": "Cody Concklin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodyConck/Baby-Tracker/issues"
+  },
+  "homepage": "https://github.com/CodyConck/Baby-Tracker#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
