@@ -7,8 +7,10 @@ const {
   deleteBaby,
 } = require("../controllers/babyController");
 
+const { protect } = require("../middleware/authMiddleware");
+
 // consolidate get and post routes below like this
-router.route("/").get(getBabies).post(setBaby);
+router.route("/").get(protect, getBabies).post(protect, setBaby);
 
 //  GET route to get baby info using the getBabies function from babyController
 // router.get("/", getBabies);
@@ -16,7 +18,7 @@ router.route("/").get(getBabies).post(setBaby);
 // router.post("/", setBaby);
 
 // consolidate put and delete routes below like this
-router.route("/:id").put(updateBaby).delete(deleteBaby);
+router.route("/:id").put(protect, updateBaby).delete(protect, deleteBaby);
 
 // PUT allows us to update baby, needs id. uses updateBaby from babyController
 // router.put("/:id", updateBaby);
