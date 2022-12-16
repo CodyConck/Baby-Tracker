@@ -1,12 +1,13 @@
 const asyncHandler = require("express-async-handler");
 
 const Baby = require("../models/babyModel");
+const User = require("../models/userModel");
 
 // @desc      Get babies
 // @route     GET /api/babies
 // @access    Private
 const getBabies = asyncHandler(async (req, res) => {
-  const babies = await Baby.find();
+  const babies = await Baby.find({ user: req.user.id });
 
   res.status(200).json(babies);
 });
@@ -24,6 +25,7 @@ const setBaby = asyncHandler(async (req, res) => {
 
   const baby = await Baby.create({
     text: req.body.text,
+    user: req.user.id,
   });
 
   //   // console logs body data from put route sent in postman
@@ -43,6 +45,20 @@ const updateBaby = asyncHandler(async (req, res) => {
     throw new Error("Baby not found");
   }
 
+  const user = await User.findById(req.user.id);
+
+  // check for user
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  // make sure logged in user matches the baby user
+  if (global.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
   const updatedBaby = await Baby.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -59,6 +75,20 @@ const deleteBaby = asyncHandler(async (req, res) => {
   if (!baby) {
     res.status(400);
     throw new Error("Baby not found");
+  }
+
+  const user = await User.findById(req.user.id);
+
+  // check for user
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  // make sure logged in user matches the baby user
+  if (global.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
   }
 
   await baby.remove();

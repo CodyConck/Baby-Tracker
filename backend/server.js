@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // establish and use the /api/babies route from the babyroutes.js file which uses babyControllers file
 app.use("/api/babies", require("./routes/babyRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 // middleware that overrides express error handling and returns stack info if theres an error
 app.use(errorHandler);
