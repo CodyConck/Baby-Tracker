@@ -45,16 +45,14 @@ const updateBaby = asyncHandler(async (req, res) => {
     throw new Error("Baby not found");
   }
 
-  const user = await User.findById(req.user.id);
-
   // check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   // make sure logged in user matches the baby user
-  if (global.user.toString() !== user.id) {
+  if (global.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }
@@ -77,16 +75,14 @@ const deleteBaby = asyncHandler(async (req, res) => {
     throw new Error("Baby not found");
   }
 
-  const user = await User.findById(req.user.id);
-
   // check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   // make sure logged in user matches the baby user
-  if (global.user.toString() !== user.id) {
+  if (global.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }
